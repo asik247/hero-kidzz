@@ -10,7 +10,7 @@ const poppinsFont = Roboto({
 });
 //? bangla font
 
- 
+
 export const fontBangla = localFont({
   src: '../fonts/mayaboti-normal.ttf',
 })
@@ -26,18 +26,26 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${poppinsFont.className} h-full antialiased`}
     >
-      <body>
-        {/* headers + nav */}
-        <header className="max-w-7xl mx-auto p-2 md:p-4">
-          <Nav></Nav>
+      <body className="min-h-screen flex flex-col">
+        {/* Header */}
+        <header className="w-full">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <Nav />
+          </div>
         </header>
-        <main className="max-w-7xl mx-auto p-2 md:p-4 h-screen">
-          {children}
+
+        {/* Main Content */}
+        <main className="flex-1 w-full">
+          <div className="max-w-7xl mx-auto px-4 py-6">
+            {children}
+          </div>
         </main>
 
-        {/* Footer + foot */}
+        {/* Footer */}
         <footer>
-          <Foot></Foot>
+          <div>
+            <Foot />
+          </div>
         </footer>
       </body>
     </html>
