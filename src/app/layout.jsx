@@ -16,10 +16,72 @@ export const fontBangla = localFont({
 })
 //? Metadata here
 export const metadata = {
- title:{
-   default:"Hero Kidzz",
-  template:'%s || Hero Kidzz'
- }
+  metadataBase: new URL("https://hero-kidzz-eight.vercel.app"),
+
+  title: {
+    default: "Hero Kidzz",
+    template: "%s | Hero Kidzz",
+  },
+
+  description:
+    "Hero Kidzz is a trusted kids store offering educational toys, learning boards, puzzles, and creative products that make learning fun for children.",
+
+  keywords: [
+    "Hero Kidzz",
+    "Kids Toys",
+    "Educational Toys",
+    "Learning Board",
+    "Kids Learning Products",
+    "Children Toys",
+    "Bangladesh Kids Store",
+  ],
+
+  authors: [{ name: "Md Asik" }],
+  creator: "Md Asik",
+  publisher: "Hero Kidzz",
+
+  openGraph: {
+    title: "Hero Kidzz - Learning Through Play",
+    description:
+      "Explore educational toys, learning boards, puzzles, and fun products designed to inspire children's creativity and learning.",
+
+    url: "https://hero-kidzz-eight.vercel.app",
+    siteName: "Hero Kidzz",
+
+    images: [
+      {
+        url: "https://i.ibb.co.com/1Gw7rq0D/Screenshot-135.png",
+        width: 1200,
+        height: 630,
+        alt: "Hero Kidzz Educational Toys Store",
+      },
+    ],
+
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Hero Kidzz - Learning Through Play",
+    description:
+      "Educational toys, learning boards, puzzles, and creative products for kids.",
+
+    images: [
+      "https://i.ibb.co.com/1Gw7rq0D/Screenshot-135.png",
+    ],
+  },
+
+  icons: {
+    icon: "https://i.ibb.co.com/WNP2ZWcY/logo.webp",
+    shortcut: "https://i.ibb.co.com/WNP2ZWcY/logo.webp",
+    apple: "https://i.ibb.co.com/WNP2ZWcY/logo.webp",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
