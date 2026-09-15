@@ -1,5 +1,8 @@
 import React from 'react';
-
+export const metadata = {
+    title:"Blog",
+  description: 'The React Framework for the Web',
+}
 const BlogPage = () => {
     return (
         <div>

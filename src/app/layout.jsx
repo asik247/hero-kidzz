@@ -16,8 +16,10 @@ export const fontBangla = localFont({
 })
 //? Metadata here
 export const metadata = {
-  title: "Hero Kidzz",
-  description: "Hero Kidzz is a single vendor web application",
+ title:{
+   default:"Hero Kidzz",
+  template:'%s || Hero Kidzz'
+ }
 };
 
 export default function RootLayout({ children }) {

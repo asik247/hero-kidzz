@@ -1,7 +1,10 @@
 import { getProducts } from '@/actions/server/getProducts';
 import ProductsCard from '@/Components/ProductsRelaive/ProductsCard';
 import React from 'react';
-
+export const metadata = {
+    title:"All Products",
+  description: 'The React Framework for the Web',
+}
 const ProductsPage = async () => {
     //Todo get products data in server component
     const products = await getProducts();

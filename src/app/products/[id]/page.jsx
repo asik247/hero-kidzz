@@ -1,7 +1,10 @@
 import { getDetails } from "@/actions/server/getProducts";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
-
+export const metadata = {
+    title:"Details",
+  description: 'The React Framework for the Web',
+}
 const ProductDetails = async ({ params }) => {
     const { id } = await params;
     const product = await getDetails(id);

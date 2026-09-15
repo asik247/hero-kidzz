@@ -60,7 +60,7 @@ const ProductsCard = ({ product }) => {
 
                 <div className="card-actions mt-4">
                     <Link
-                        href={`/products/productDetail/${_id}`}
+                        href={`/products/${_id}`}
                         className="btn btn-outline btn-primary flex-1"
                     >
                         View Details
