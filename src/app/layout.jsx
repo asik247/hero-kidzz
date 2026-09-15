@@ -1,16 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins, Roboto } from "next/font/google";
+import localFont from 'next/font/local'
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+import Nav from "@/Components/NavFoot/Nav";
+import Foot from "@/Components/NavFoot/Foot";
+//? font here
+const poppinsFont = Roboto({
+  weight: ["100", "300", "500"],
+  subsets: ["italic"],
 });
+//? bangla font
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+ 
+export const fontBangla = localFont({
+  src: '../fonts/mayaboti-normal.ttf',
+})
+//? Metadata here
 export const metadata = {
   title: "Hero Kidzz",
   description: "Hero Kidzz is a single vendor web application",
@@ -20,17 +24,21 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppinsFont.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body>
         {/* headers + nav */}
-
-        <main>
+        <header className="max-w-7xl mx-auto p-2 md:p-4">
+          <Nav></Nav>
+        </header>
+        <main className="max-w-7xl mx-auto p-2 md:p-4 h-screen">
           {children}
         </main>
-      
-        {/* Footer + foot */}
 
+        {/* Footer + foot */}
+        <footer>
+          <Foot></Foot>
+        </footer>
       </body>
     </html>
   );

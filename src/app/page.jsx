@@ -1,9 +1,11 @@
+import Banner from '@/Components/Home/Banner';
 import React from 'react';
 
 const HomePage = () => {
   return (
     <div>
-      <h1>Welcome to Hero Kidzz</h1>
+     {/* Banner Section */}
+     <Banner></Banner>
     </div>
   );
 };
