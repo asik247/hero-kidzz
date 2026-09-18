@@ -14,6 +14,6 @@ export const getDetails = async (id) => {
         _id:new ObjectId(id)
     }
     const result = await collection.findOne(query)
-    return result
+    return {...result,_id:result._id.toString()}
     
 }

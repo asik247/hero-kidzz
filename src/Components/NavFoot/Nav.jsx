@@ -3,6 +3,7 @@ import Logo from '../Logo/Logo';
 import NavLinks from '../NavLinks/NavLinks';
 import Link from 'next/link';
 import CutIcon from '../AddToCutIcon/CutIcon';
+import AuthBtn from '../AuthBtn';
 
 const Nav = () => {
     const links = <>
@@ -46,7 +47,8 @@ const Nav = () => {
             <div className="navbar-end gap-1">
 
                <CutIcon></CutIcon>
-               <Link className='btn btn-primary outline-none' href={'/login'}>LogIn</Link>
+              {/* AuthBtn */}
+              <AuthBtn></AuthBtn>
             </div>
         </div>
     );

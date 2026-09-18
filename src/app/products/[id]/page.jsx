@@ -1,4 +1,5 @@
 import { getDetails } from "@/actions/server/getProducts";
+import AddToCutBtn from "@/Components/AddToCutIcon/AddToCutBtn";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 export const metadata = {
@@ -121,10 +122,8 @@ const ProductDetails = async ({ params }) => {
                     </div>
 
                     <div className="flex gap-4">
-                        <button className="btn btn-primary btn-lg">
-                            Add To Cart
-                        </button>
-
+                        {/* Add To Cut btn */}
+                            <AddToCutBtn product={product}></AddToCutBtn>
                         <button className="btn btn-outline btn-primary btn-lg">
                             Buy Now
                         </button>
