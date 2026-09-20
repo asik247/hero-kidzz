@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaCartPlus, FaStar } from "react-icons/fa";
+import AddToCutBtn from "../AddToCutIcon/AddToCutBtn";
 
 const ProductsCard = ({ product }) => {
     const {
@@ -65,11 +66,8 @@ const ProductsCard = ({ product }) => {
                     >
                         View Details
                     </Link>
-
-                    <button className="btn btn-primary flex-1">
-                        <FaCartPlus />
-                        Add To Cart
-                    </button>
+                    {/* AddToCut Btn */}
+                    <AddToCutBtn product={{...product,_id: _id.toString()}}></AddToCutBtn>
                 </div>
             </div>
         </div>

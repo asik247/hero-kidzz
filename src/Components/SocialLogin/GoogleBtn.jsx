@@ -1,20 +1,15 @@
 'use client'
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
-import React from 'react';
 import { FaGoogle } from 'react-icons/fa';
-
 const GoogleBtn = () => {
     //Todo search params.
     const params = useSearchParams();
-    // console.log('params',params.get('callbackUrl'));
-    const handlerGoogleLogin = async ()=>{
-      const result = await  signIn('google',{
-         callbackUrl:params.get("callbackUrl")||"/",
-        //  callbackUrl:"/",
-        redirect:false
-      })
-      console.log('login users',result);
+    const handlerGoogleLogin = async () => {
+        await signIn('google', {
+            callbackUrl: params.get("callbackUrl") || "/",
+            redirect: false
+        })
     }
     return (
         <div>

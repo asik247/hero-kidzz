@@ -2,6 +2,7 @@
 import { postUser } from '@/actions/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const RegisterForm = () => {
     const params = useSearchParams();
@@ -17,11 +18,28 @@ const RegisterForm = () => {
             password: form.password.value
         }
         const result = await postUser(formData);
-        console.log(result);
+        // console.log(result);
         if (result.insertedId) {
-            alert("successfully register done")
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Account Successfully Created!",
+                showConfirmButton: false,
+                timer: 1500
+            });
             router.push(callback)
         }
+        //? Sweet Aleart.
+        if (!result.insertedId) {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "user already exist!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
     }
     return (
         <div>

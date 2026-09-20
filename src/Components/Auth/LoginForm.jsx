@@ -45,7 +45,7 @@ const LoginForm = () => {
 
 
             });
-            router.push(callbackUrl)
+            router.push(callbackUrl )
 
         }
     };

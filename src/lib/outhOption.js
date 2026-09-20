@@ -43,16 +43,16 @@ export const authOptions = {
 
     callbacks: {
         async signIn({ user, account }) {
-
+            console.log(user);
             const collection = await connect("users");
 
             const existingUser = await collection.findOne({
-                email: user.email
+                email: user.email, provider: account.provider
             });
 
             // User already exists
             if (existingUser) {
-                return true;
+                return true
             }
 
             const newUser = {
@@ -66,7 +66,39 @@ export const authOptions = {
 
             await collection.insertOne(newUser);
 
-            return true;
+            return true
         },
+
+        // async redirect({ url, baseUrl }) {
+        //     // return baseUrl
+        // },
+
+        async session({ session, user, token }) {
+            session.role = token?.role
+            session.email = token?.email
+            return session
+        },
+
+        async jwt({ token, user, account }) {
+            if (user) {
+                if (account?.provider === "google") {
+
+                    const collection = await connect("users");
+
+                    const dbUser = await collection.findOne({
+                        email: user.email
+                    });
+
+                    token.role = dbUser?.role;
+                    token.email = dbUser?.email;
+
+                } else {
+                    token.role = user?.role;
+                    token.email = user?.email;
+                }
+            }
+
+            return token;
+        }
     }
 }
