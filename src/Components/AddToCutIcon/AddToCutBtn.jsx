@@ -2,29 +2,38 @@
 import { handlerAdd } from '@/actions/server/cards';
 import { useSession } from 'next-auth/react';
 import { redirect, usePathname, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const AddToCutBtn = ({ product }) => {
     const route = useRouter();
+    const [loading, setLoading] = useState(false)
     const path = usePathname();
     const session = useSession();
     const isLogin = session?.status == 'authenticated'
-    const handlerAddToCut = async() => {
-       const result = await handlerAdd({product})
-       if(result.success){
-        alert("ADD CARD DATA")
-       }
+    //! handler addToCut.
+    const handlerAddToCut = async () => {
+        setLoading(true)
         if (isLogin) {
-            alert(product.title)
+            //! handler add.
+            const result = await handlerAdd({ product, inc: true })
+            if (result.success) {
+                Swal.fire("Added To Cut", product?.title, "success")
+            }
+            else {
+                Swal.fire("Opps!", "Something Worn Hapen!", "error")
+            }
+            setLoading(false)
         }
         else {
             route.push(`/login?callbackUrl=${path}`)
+            setLoading(false)
         }
     }
     return (
         <div>
-            <button onClick={handlerAddToCut} className="btn btn-primary flex-1">
+            <button disabled = {session.status == 'loading' || loading} onClick={handlerAddToCut} className="btn btn-primary flex-1">
                 <FaCartPlus />
                 Add To Cart
             </button>

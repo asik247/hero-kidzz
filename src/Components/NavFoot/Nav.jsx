@@ -46,9 +46,11 @@ const Nav = () => {
             </div>
             <div className="navbar-end gap-1">
 
-               <CutIcon></CutIcon>
-              {/* AuthBtn */}
-              <AuthBtn></AuthBtn>
+                <Link href={'/cart'}>
+                    <CutIcon></CutIcon>
+                </Link>
+                {/* AuthBtn */}
+                <AuthBtn></AuthBtn>
             </div>
         </div>
     );
