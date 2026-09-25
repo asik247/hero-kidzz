@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/outhOption";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth"
 import { revalidatePath } from "next/cache";
+import { Boldonse } from "next/font/google";
 import { cache } from "react";
 //? collection
 const collection = await connect("cards")
@@ -47,13 +48,14 @@ export const handlerAdd = async ({ product, inc = true }) => {
 //! Get added data in db.
 export const getCardData = cache(
     async () => {
-        const { user } = await getServerSession(authOptions);
+        const { user } = await getServerSession(authOptions) || [];
         if (!user) return []
         const query = {
             email: user?.email
         }
         const result = await collection.find(query).toArray()
-        return result
+        // return result.toString()
+        return JSON.parse(JSON.stringify(result));
 
     }
 )
@@ -81,3 +83,37 @@ export const deleteCardData = async (id) => {
     };
 
 };
+
+//? increment funk.
+export const quentityIncrementDB = async (id, quentity) => {
+    const { user } = await getServerSession(authOptions);
+    if (!user) return { success: false }
+    if (quentity >= 10) {
+        return { success: false, message: "you can,t at a time 10 up quentity" }
+    }
+    const query = { _id: new ObjectId(id) };
+    const updateQuentity = {
+        $inc: {
+            quentity: + 1
+        }
+    }
+    const result = await collection.updateOne(query, updateQuentity);
+    return { success: Boolean(result.modifiedCount) }
+}
+
+//Todo Decrement funk.
+export const quentityDecrementDB = async (id, quentity) => {
+    const { user } = await getServerSession(authOptions);
+    if (!user) return { success: false }
+    if (quentity <= 1) {
+        return { success: false, message: "quentity must 1 added" }
+    }
+    const query = { _id: new ObjectId(id) };
+    const updateQuentity = {
+        $inc: {
+         quentity: - 1
+        }
+    }
+    const result = await collection.updateOne(query, updateQuentity)
+    return { success: Boolean(result.modifiedCount) }
+}

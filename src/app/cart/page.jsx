@@ -1,27 +1,14 @@
 import { getCardData } from '@/actions/server/cards';
-import AllCards from '@/Components/AllCardPage/AllCards';
+import ClientCard from '@/Components/AllCardPage/ClientCard';
 import React from 'react';
 
 const CartPage = async() => {
     const cartItems = await getCardData()
+    const formating = cartItems.map(item=>({...item,_id:item._id.toString()}))
     console.log(cartItems[0]);
     return (
-        <div >
-          <div className="flex items-center gap-3 mb-4">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-base-content">
-                  Shopping Cart
-             </h1>
-             <span className="badge badge-primary badge-sm font-semibold rounded-full px-2.5 py-3">
-                {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
-              </span>
-            </div>
-            {/* Titile end */}
-            <div className="flex">
-            <div className='flex-3 items-center gap-4 '>
-                {cartItems.map(item=><AllCards key={item._id.toString()} item={item}></AllCards>)}
-            </div>
-            <div className='flex-1'></div>
-            </div>
+        <div>
+            <ClientCard  cartItems={formating}></ClientCard>
         </div>
     );
 };

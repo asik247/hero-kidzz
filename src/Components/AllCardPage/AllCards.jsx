@@ -1,11 +1,13 @@
 'use client'
-import { deleteCardData } from "@/actions/server/cards";
+import { deleteCardData, quentityDecrementDB, quentityIncrementDB } from "@/actions/server/cards";
 import Image from "next/image";
+import { useState } from "react";
 import { FaTrash, FaPlus, FaMinus } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-const AllCards = ({ item, onIncrease, onDecrease }) => {
-    const { _id } = item;
+const AllCards = ({ item, handleRemove, updateQuentityUI, }) => {
+    const { _id, quentity } = item;
+    const [loading,setLoading] = useState(false)
     const handlerDelete = async () => {
         const swalResult = await Swal.fire({
             title: "Are you sure?",
@@ -21,6 +23,7 @@ const AllCards = ({ item, onIncrease, onDecrease }) => {
             const result = await deleteCardData(_id);
 
             if (result.success) {
+                handleRemove(_id)
                 Swal.fire({
                     title: "Deleted!",
                     text: "Your item has been deleted.",
@@ -35,9 +38,32 @@ const AllCards = ({ item, onIncrease, onDecrease }) => {
             }
         }
     };
+    // Todo handler incrament....
+    const onIncrease = async () => {
+        setLoading(true)
+        //? server thek update...
+        const result = await quentityIncrementDB(_id, quentity)
+        if (result.success) {
+            updateQuentityUI(_id, quentity + 1)
+            Swal.fire("success","Increment done","success")
+        }
+        setLoading(false)
+    }
+    //Todo handler decrement....
+    const onDecrease = async () => {
+        setLoading(true)
+        //? server thek update...
+        const result = await quentityDecrementDB(_id, quentity)
+        if (result.success) {
+            updateQuentityUI(_id, quentity - 1)
+            Swal.fire("success","Decrement done","success")
+            
+        }
+        setLoading(false)
+    }
     return (
-        <div className="group relative bg-base-100 border border-base-200 hover:border-base-300 rounded-3xl p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 ease-out">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
+        <div className="group mb-5 relative bg-base-100 border border-base-200 hover:border-base-300 rounded-3xl p-4 md:p-5 shadow-sm hover:shadow-xl transition-all duration-300 ease-out">
+            <div className="flex  flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
 
                 {/* Product Image */}
                 <div className="relative w-full sm:w-28 h-40 sm:h-28 shrink-0 overflow-hidden rounded-2xl bg-base-200">
@@ -92,7 +118,7 @@ const AllCards = ({ item, onIncrease, onDecrease }) => {
                                 onClick={onDecrease}
                                 aria-label="Decrease quantity"
                                 className="w-7 h-7 rounded-full flex items-center justify-center bg-base-100 hover:bg-base-300 text-base-content shadow-xs transition-colors active:scale-95 disabled:opacity-40"
-                                disabled={item.quentity <= 1}
+                                disabled={item.quentity === 1 || loading}
                             >
                                 <FaMinus className="w-2.5 h-2.5" />
                             </button>
@@ -104,6 +130,7 @@ const AllCards = ({ item, onIncrease, onDecrease }) => {
                             <button
                                 onClick={onIncrease}
                                 aria-label="Increase quantity"
+                                disabled={item.quentity === 10 || loading}
                                 className="w-7 h-7 rounded-full flex items-center justify-center bg-primary hover:opacity-90 text-primary-content shadow-xs transition-colors active:scale-95"
                             >
                                 <FaPlus className="w-2.5 h-2.5" />
