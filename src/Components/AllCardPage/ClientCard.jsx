@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import AllCards from "./AllCards";
+import Link from "next/link";
+import CheckOutBtn from "../CheckOutBtn/CheckOutBtn";
 
 const ClientCard = ({ cartItems }) => {
     const [items, setItems] = useState(cartItems)
@@ -93,11 +95,7 @@ const ClientCard = ({ cartItems }) => {
                         </div>
 
                         {/* Checkout Button */}
-                        <button
-                            className="btn btn-primary mt-3 w-full rounded-xl"
-                        >
-                            Proceed to Checkout
-                        </button>
+                        <CheckOutBtn></CheckOutBtn>
                     </div>
                 </div>
             </div>
