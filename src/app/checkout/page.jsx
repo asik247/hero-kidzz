@@ -1,21 +1,19 @@
-'use server'
-import CheckoutForm from '@/Components/CheckOutBtn/CheckoutForm';
-import { authOptions } from '@/lib/outhOption';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 
+import { getCardData } from '@/actions/server/cards';
+import CheckOutForm from '@/Components/CheckoutForm/CheckOutForm';
 import React from 'react';
 
 const CheckOutPage =async () => {
-    const session =await getServerSession(authOptions);
-    if(!session){
-         redirect("/login?callbackUrl=/checkout");
-    }
+    const cartItems = await getCardData();
+    const fromattedItems = cartItems.map(item=>({
+        ...item,
+        _id:item._id.toString()
+    }))
     return (
         <div>
-            <h1>CheckOut</h1>
-            <CheckoutForm></CheckoutForm>
-            
+           {/* CheckOut form */}
+           
+            <CheckOutForm cartItems={fromattedItems}></CheckOutForm>
         </div>
     );
 };

@@ -111,9 +111,17 @@ export const quentityDecrementDB = async (id, quentity) => {
     const query = { _id: new ObjectId(id) };
     const updateQuentity = {
         $inc: {
-         quentity: - 1
+            quentity: - 1
         }
     }
     const result = await collection.updateOne(query, updateQuentity)
     return { success: Boolean(result.modifiedCount) }
+}
+//Todo clear cart.
+export const clear = async () => {
+    const { user } = await getServerSession(authOptions);
+    if (!user) return { success: false }
+    const query = { email: user?.email }
+    const result = await collection.deleteMany(query)
+    return result
 }

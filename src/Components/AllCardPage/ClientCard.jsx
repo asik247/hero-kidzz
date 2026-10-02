@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import AllCards from "./AllCards";
 import Link from "next/link";
-import CheckOutBtn from "../CheckOutBtn/CheckOutBtn";
+
 
 const ClientCard = ({ cartItems }) => {
     const [items, setItems] = useState(cartItems)
@@ -95,7 +95,8 @@ const ClientCard = ({ cartItems }) => {
                         </div>
 
                         {/* Checkout Button */}
-                        <CheckOutBtn></CheckOutBtn>
+                       
+                        <Link  className="text-center font-bold btn btn-primary w-full my-8" href={'/checkout'} disabled={!items.length}>Confram Order</Link>
                     </div>
                 </div>
             </div>
